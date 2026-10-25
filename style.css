@@ -1,0 +1,1035 @@
+/* ==========================================================================
+   وين راحت المصاريف؟ - تصميم عصري مالي (Editorial Fintech Design System)
+   Bespoke, Authentic, Modern RTL Interface (No Generic AI-Cliches)
+   ========================================================================== */
+
+:root {
+  /* Contemporary Ink & Surface Palette */
+  --ink-900: #0f172a;       /* Deepest obsidian ink */
+  --ink-800: #1e293b;       /* Primary text */
+  --ink-700: #334155;       /* Secondary headings */
+  --ink-500: #64748b;       /* Muted helper text */
+  --ink-400: #94a3b8;       /* Subtle placeholders / icons */
+  --ink-200: #e2e8f0;       /* Crisp borders */
+  --ink-100: #f1f5f9;       /* Secondary card / input fill */
+
+  --canvas: #f8fafc;        /* Clean airy background */
+  --surface: #ffffff;       /* Pure white elevated cards */
+  --surface-alt: #f8fafc;
+
+  /* Brand Accents (Refined Sapphire & Deep Midnight) */
+  --brand: #2563eb;
+  --brand-hover: #1d4ed8;
+  --brand-soft: #eff6ff;
+  --brand-ring: rgba(37, 99, 235, 0.16);
+
+  /* Functional Financial Accents (Forest Mint & Modern Rose Coral) */
+  --income-base: #059669;
+  --income-soft: #ecfdf5;
+  --income-border: #a7f3d0;
+  --income-text: #065f46;
+
+  --expense-base: #e11d48;
+  --expense-soft: #fff1f2;
+  --expense-border: #fecdd3;
+  --expense-text: #9f1239;
+
+  /* Aliases for JavaScript Compatibility */
+  --primary: var(--brand);
+  --income: var(--income-base);
+  --expense: var(--expense-base);
+  --slate-800: var(--ink-800);
+  --slate-400: var(--ink-400);
+
+  /* Typography */
+  --font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Refined Elevation (Layered Depth instead of heavy muddy drop shadows) */
+  --shadow-subtle: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.05), 0 6px 16px -2px rgba(15, 23, 42, 0.03);
+  --shadow-hover: 0 4px 6px -1px rgba(15, 23, 42, 0.06), 0 12px 24px -4px rgba(15, 23, 42, 0.06);
+
+  /* Border Radii */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 9999px;
+
+  /* Smooth Micro-Interactions */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition: all 0.2s var(--ease);
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--canvas);
+  color: var(--ink-800);
+  direction: rtl;
+  text-align: right;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+  background-image: 
+    radial-gradient(at 100% 0%, rgba(37, 99, 235, 0.03) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(5, 150, 105, 0.02) 0px, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* Layout Container */
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ==========================================================================
+   1. ALTERNATIVE: Sleek Glassmorphic Floating Island Navigation
+   (Replacing the generic dark navy tech-SaaS gradient header)
+   ========================================================================== */
+.app-header {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: var(--transition);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  color: var(--ink-900);
+}
+
+/* Bespoke Monogram Logo instead of glowing rainbow gradient square */
+.brand-icon {
+  width: 42px;
+  height: 42px;
+  background: var(--ink-900);
+  color: #ffffff;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: var(--transition);
+}
+
+.brand:hover .brand-icon {
+  transform: rotate(-6deg) scale(1.05);
+  background: var(--brand);
+}
+
+.brand-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  color: var(--ink-900);
+  line-height: 1.2;
+}
+
+.brand-subtitle {
+  font-size: 0.78rem;
+  color: var(--ink-500);
+  font-weight: 500;
+}
+
+/* Segmented Modern Navigation Pill */
+.nav-links {
+  display: flex;
+  align-items: center;
+  background: var(--ink-100);
+  padding: 0.3rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--ink-200);
+  gap: 0.25rem;
+}
+
+.nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1.15rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--ink-500);
+  transition: var(--transition);
+}
+
+.nav-btn:hover {
+  color: var(--ink-900);
+}
+
+.nav-btn.active {
+  background: var(--surface);
+  color: var(--brand);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+}
+
+/* ==========================================================================
+   2. Subheader & Dashboard Intro
+   ========================================================================== */
+.hero-section {
+  padding: 2.2rem 0 1.2rem;
+}
+
+.hero-greeting {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.greeting-text h1 {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--ink-900);
+  letter-spacing: -0.5px;
+}
+
+.greeting-text p {
+  color: var(--ink-500);
+  font-size: 0.95rem;
+  margin-top: 0.2rem;
+}
+
+.actions-top {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* ==========================================================================
+   3. ALTERNATIVE: Refined Financial Stat Cards
+   (REMOVED the generic 6px vertical colored stripe on right border!)
+   Using structural framing, subtle ambient micro-gradients, and tactile pills.
+   ========================================================================== */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2.25rem;
+}
+
+.stat-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 1.6rem 1.75rem;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--ink-200);
+  position: relative;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Completely removed ::before colored edge strip */
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  border-color: #cbd5e1;
+}
+
+/* Distinctive surface treatments */
+.stat-card.balance {
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  border-color: #cbd5e1;
+}
+
+.stat-card.income {
+  background: linear-gradient(145deg, #ffffff 0%, #f0fdf4 100%);
+  border-color: #bbf7d0;
+}
+
+.stat-card.expense {
+  background: linear-gradient(145deg, #ffffff 0%, #fff1f2 100%);
+  border-color: #fecdd3;
+}
+
+.stat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.1rem;
+}
+
+.stat-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--ink-700);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Refined Indicator Dot instead of huge pastel square icon */
+.stat-card.balance .stat-title::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand);
+}
+
+.stat-card.income .stat-title::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--income-base);
+}
+
+.stat-card.expense .stat-title::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--expense-base);
+}
+
+.stat-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  border: 1px solid transparent;
+}
+
+.stat-card.balance .stat-icon {
+  background: rgba(37, 99, 235, 0.08);
+  color: var(--brand);
+  border-color: rgba(37, 99, 235, 0.15);
+}
+
+.stat-card.income .stat-icon {
+  background: var(--income-soft);
+  color: var(--income-base);
+  border-color: var(--income-border);
+}
+
+.stat-card.expense .stat-icon {
+  background: var(--expense-soft);
+  color: var(--expense-base);
+  border-color: var(--expense-border);
+}
+
+.stat-value {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--ink-900);
+  direction: ltr;
+  text-align: right;
+  letter-spacing: -1px;
+  font-feature-settings: 'tnum' on, 'lnum' on;
+  line-height: 1.1;
+  margin-bottom: 0.4rem;
+}
+
+.stat-subtitle {
+  font-size: 0.8rem;
+  color: var(--ink-500);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   4. Main Content Grid Layout
+   ========================================================================== */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 1.75rem;
+  align-items: start;
+  margin-bottom: 3.5rem;
+}
+
+@media (max-width: 990px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Unified Card Surfaces */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--ink-200);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.card-header {
+  padding: 1.25rem 1.6rem;
+  border-bottom: 1px solid var(--ink-100);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+}
+
+.card-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--ink-900);
+}
+
+.card-title i {
+  color: var(--brand);
+  font-size: 1rem;
+}
+
+.card-body {
+  padding: 1.6rem;
+}
+
+/* ==========================================================================
+   5. ALTERNATIVE: Refined Transaction Entry Form
+   (Replacing generic flat inputs with a tactile financial sheet)
+   ========================================================================== */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink-700);
+  margin-bottom: 0.45rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  border: 1.5px solid var(--ink-200);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  color: var(--ink-900);
+  transition: var(--transition);
+  outline: none;
+}
+
+.form-control:focus {
+  border-color: var(--brand);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px var(--brand-ring);
+}
+
+/* Hero Amount Input Styling */
+#tx-amount {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  direction: ltr;
+  text-align: right;
+  color: var(--ink-900);
+}
+
+/* Type Toggle Switch (Segmented Control) */
+.type-toggle-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem;
+  background: var(--ink-100);
+  padding: 0.35rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--ink-200);
+  margin-bottom: 1.35rem;
+}
+
+.type-toggle-btn {
+  border: none;
+  background: transparent;
+  padding: 0.7rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--ink-500);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+}
+
+.type-toggle-btn.active.expense {
+  background: var(--surface);
+  color: var(--expense-base);
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.12);
+  border: 1px solid var(--expense-border);
+}
+
+.type-toggle-btn.active.income {
+  background: var(--surface);
+  color: var(--income-base);
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.12);
+  border: 1px solid var(--income-border);
+}
+
+/* Primary Action Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.4rem;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--ink-900);
+  color: #ffffff;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
+}
+
+.btn-primary:hover {
+  background: var(--brand);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+}
+
+.btn-outline {
+  background: var(--surface);
+  border: 1px solid var(--ink-200);
+  color: var(--ink-700);
+}
+
+.btn-outline:hover {
+  background: var(--ink-100);
+  border-color: var(--ink-400);
+  color: var(--ink-900);
+}
+
+.btn-sm {
+  padding: 0.45rem 0.95rem;
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-danger-ghost {
+  background: transparent;
+  color: var(--ink-500);
+  border: 1px solid transparent;
+}
+
+.btn-danger-ghost:hover {
+  background: var(--expense-soft);
+  color: var(--expense-base);
+  border-color: var(--expense-border);
+}
+
+.edit-cancel-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+/* ==========================================================================
+   6. ALTERNATIVE: Proportional Spending Breakdown Bar
+   (REPLACED generic 2015 Bootstrap progress bars with modern gauge bars)
+   ========================================================================== */
+.breakdown-card {
+  margin-top: 1.5rem;
+}
+
+.category-bar-item {
+  margin-bottom: 1.1rem;
+}
+
+.category-bar-item:last-child {
+  margin-bottom: 0;
+}
+
+.category-bar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.86rem;
+  margin-bottom: 0.4rem;
+}
+
+.category-bar-name {
+  font-weight: 700;
+  color: var(--ink-800);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.category-bar-amount {
+  font-weight: 700;
+  color: var(--ink-900);
+  font-feature-settings: 'tnum';
+  font-size: 0.84rem;
+}
+
+.progress-track {
+  width: 100%;
+  height: 7px;
+  background: var(--ink-100);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--brand) 0%, #38bdf8 100%);
+  transition: width 0.6s var(--ease);
+}
+
+/* ==========================================================================
+   7. Toolbar & Search Controls
+   ========================================================================== */
+.transactions-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding: 1.35rem 1.6rem;
+  background: #ffffff;
+  border-bottom: 1px solid var(--ink-100);
+}
+
+.search-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.search-input-wrapper i {
+  position: absolute;
+  right: 1.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ink-400);
+  font-size: 0.95rem;
+}
+
+.search-input-wrapper .form-control {
+  padding-right: 2.75rem;
+  background: var(--canvas);
+  border-color: var(--ink-200);
+}
+
+.search-input-wrapper .form-control:focus {
+  background: #ffffff;
+  border-color: var(--brand);
+}
+
+.filters-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Modern Minimalist Segmented Tabs */
+.pill-group {
+  display: flex;
+  background: var(--ink-100);
+  padding: 0.25rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--ink-200);
+  gap: 0.2rem;
+}
+
+.filter-pill {
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  color: var(--ink-500);
+  transition: var(--transition);
+}
+
+.filter-pill.active {
+  background: #ffffff;
+  color: var(--ink-900);
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
+}
+
+.dropdown-filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-select {
+  padding: 0.48rem 0.95rem;
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 600;
+  border: 1px solid var(--ink-200);
+  border-radius: var(--radius-md);
+  background: #ffffff;
+  color: var(--ink-700);
+  cursor: pointer;
+  outline: none;
+  transition: var(--transition);
+}
+
+.filter-select:focus {
+  border-color: var(--brand);
+}
+
+/* Count Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.75rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--ink-100);
+  color: var(--ink-700);
+  border: 1px solid var(--ink-200);
+}
+
+/* ==========================================================================
+   8. ALTERNATIVE: Clean Editorial Ledger List
+   (REPLACED generic icon square boxes with refined typography & badges)
+   ========================================================================== */
+.transactions-list {
+  list-style: none;
+  max-height: 620px;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.transaction-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.15rem 1.6rem;
+  border-bottom: 1px solid var(--ink-100);
+  transition: var(--transition);
+  position: relative;
+}
+
+.transaction-item:hover {
+  background-color: #fafbfe;
+}
+
+.transaction-item:last-child {
+  border-bottom: none;
+}
+
+.tx-main {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+  flex: 1;
+}
+
+/* Refined Subtle Category Marker */
+.tx-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  transition: var(--transition);
+}
+
+.tx-icon.income {
+  background: var(--income-soft);
+  color: var(--income-base);
+  border: 1px solid var(--income-border);
+}
+
+.tx-icon.expense {
+  background: var(--expense-soft);
+  color: var(--expense-base);
+  border: 1px solid var(--expense-border);
+}
+
+.tx-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.tx-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--ink-900);
+}
+
+.tx-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--ink-500);
+}
+
+.tx-end {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.tx-amount {
+  font-size: 1.18rem;
+  font-weight: 800;
+  direction: ltr;
+  text-align: right;
+  letter-spacing: -0.3px;
+  font-feature-settings: 'tnum';
+}
+
+.tx-amount.income {
+  color: var(--income-base);
+}
+
+.tx-amount.expense {
+  color: var(--ink-900);
+}
+
+.tx-actions {
+  display: flex;
+  gap: 0.35rem;
+  opacity: 0.85;
+  transition: var(--transition);
+}
+
+.transaction-item:hover .tx-actions {
+  opacity: 1;
+}
+
+.action-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  color: var(--ink-400);
+  transition: var(--transition);
+}
+
+.action-icon-btn.edit:hover {
+  background: var(--brand-soft);
+  color: var(--brand);
+  border-color: rgba(37, 99, 235, 0.2);
+}
+
+.action-icon-btn.delete:hover {
+  background: var(--expense-soft);
+  color: var(--expense-base);
+  border-color: var(--expense-border);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 4rem 1.5rem;
+}
+
+.empty-state-icon {
+  font-size: 2.8rem;
+  color: var(--ink-200);
+  margin-bottom: 0.85rem;
+}
+
+.empty-state h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink-700);
+  margin-bottom: 0.35rem;
+}
+
+.empty-state p {
+  color: var(--ink-400);
+  font-size: 0.9rem;
+}
+
+/* Toast Notification (Sleek Dark Obsidian Capsule) */
+.toast-container {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.toast {
+  background: var(--ink-900);
+  color: #ffffff;
+  padding: 0.85rem 1.35rem;
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: slideUp 0.3s var(--ease);
+  min-width: 270px;
+}
+
+.toast.success i { color: #34d399; }
+.toast.danger i { color: #fb7185; }
+.toast.info i { color: #60a5fa; }
+
+/* ==========================================================================
+   9. Charts Page Styling
+   ========================================================================== */
+.chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+@media (max-width: 880px) {
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chart-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--ink-200);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-card);
+}
+
+.chart-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.chart-card-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--ink-900);
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.chart-container {
+  position: relative;
+  height: 290px;
+  width: 100%;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: right;
+  font-size: 0.92rem;
+}
+
+.styled-table th {
+  background: var(--ink-100);
+  padding: 0.95rem 1.25rem;
+  font-weight: 800;
+  color: var(--ink-700);
+  border-bottom: 1px solid var(--ink-200);
+}
+
+.styled-table td {
+  padding: 0.95rem 1.25rem;
+  border-bottom: 1px solid var(--ink-100);
+  color: var(--ink-800);
+}
+
+.styled-table tbody tr:hover {
+  background-color: #fafbfe;
+}
+
+/* Footer */
+.app-footer {
+  margin-top: auto;
+  background: #ffffff;
+  border-top: 1px solid var(--ink-200);
+  padding: 1.75rem 0;
+  text-align: center;
+  color: var(--ink-500);
+  font-size: 0.88rem;
+}
+
+.app-footer span {
+  font-weight: 800;
+  color: var(--ink-900);
+}
+
+/* Animations */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}

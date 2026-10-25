@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>وين راحت المصاريف؟ - متتبع المصاريف والدخل</title>
+  <meta name="description" content="تطبيق ويب لإدارة المصاريف والدخل الشخصي باستخدام جافاسكريبت الأساسية">
+
+  <!-- Google Fonts: Tajawal -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- App Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Top App Navigation -->
+  <header class="app-header">
+    <div class="container header-content">
+      <a href="index.html" class="brand" id="brand-link">
+        <div class="brand-icon">
+          <i class="fa-solid fa-wallet"></i>
+        </div>
+        <div>
+          <h1 class="brand-title">وين راحت المصاريف؟</h1>
+          <span class="brand-subtitle">متتبع الدخل والمصاريف اليومية</span>
+        </div>
+      </a>
+
+      <!-- <nav class="nav-links">
+        <a href="index.html" class="nav-btn active" id="nav-home">
+          <i class="fa-solid fa-list-check"></i>
+          <span>لوحة التحكم</span>
+        </a>
+      </nav> -->
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="container">
+
+    <!-- Hero / Welcome & Quick Actions -->
+    <section class="hero-section">
+      <div class="hero-greeting">
+        <div class="greeting-text">
+          <h1>راقب مصاريفك ونظّم ميزانيتك الشهرية</h1>
+        </div>
+        <div class="actions-top">
+          <button type="button" class="btn btn-outline btn-sm" id="btn-reset-data"
+            title="استرجاع البيانات التجريبية الافتراضية">
+            <i class="fa-solid fa-rotate-right"></i>
+            <span>إعادة تعيين البيانات</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Summary Statistics Cards -->
+      <div class="stats-grid">
+        <!-- Balance Card -->
+        <div class="stat-card balance" id="card-balance">
+          <div class="stat-card-header">
+            <span class="stat-title">الرصيد الصافي المتبقي</span>
+            <div class="stat-icon">
+              <i class="fa-solid fa-scale-balanced"></i>
+            </div>
+          </div>
+          <div class="stat-value" id="total-balance">0.00 د.أ</div>
+          <div class="stat-subtitle">إجمالي الدخل مطروحاً منه المصاريف</div>
+        </div>
+
+        <!-- Income Card -->
+        <div class="stat-card income" id="card-income">
+          <div class="stat-card-header">
+            <span class="stat-title">إجمالي الدخل</span>
+            <div class="stat-icon">
+              <i class="fa-solid fa-arrow-trend-up"></i>
+            </div>
+          </div>
+          <div class="stat-value" id="total-income">0.00 د.أ</div>
+          <div class="stat-subtitle">الرواتب والمكافآت والمشاريع</div>
+        </div>
+
+        <!-- Expense Card -->
+        <div class="stat-card expense" id="card-expense">
+          <div class="stat-card-header">
+            <span class="stat-title">إجمالي المصاريف</span>
+            <div class="stat-icon">
+              <i class="fa-solid fa-arrow-trend-down"></i>
+            </div>
+          </div>
+          <div class="stat-value" id="total-expense">0.00 د.أ</div>
+          <div class="stat-subtitle">كافة المدفوعات والمشتريات</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dashboard Main Grid (Form + List) -->
+    <div class="dashboard-grid">
+
+      <!-- Right Column: Add / Edit Transaction Form -->
+      <aside class="sidebar-column">
+        <div class="card" id="transaction-form-card">
+          <div class="card-header">
+            <h2 class="card-title" id="form-heading">
+              <i class="fa-solid fa-circle-plus"></i>
+              <span>إضافة معاملة جديدة</span>
+            </h2>
+          </div>
+          <div class="card-body">
+            <form id="transaction-form">
+              <!-- Hidden ID for Editing Mode -->
+              <input type="hidden" id="tx-id" value="">
+
+              <!-- Type Toggle (Expense / Income) -->
+              <div class="form-group">
+                <label class="form-label">نوع المعاملة</label>
+                <div class="type-toggle-group">
+                  <button type="button" class="type-toggle-btn active expense" id="type-btn-expense"
+                    data-type="expense">
+                    <i class="fa-solid fa-arrow-down"></i>
+                    <span>مصروف</span>
+                  </button>
+                  <button type="button" class="type-toggle-btn" id="type-btn-income" data-type="income">
+                    <i class="fa-solid fa-arrow-up"></i>
+                    <span>دخل</span>
+                  </button>
+                </div>
+                <!-- Hidden input to store chosen type -->
+                <input type="hidden" id="tx-type" value="expense">
+              </div>
+
+              <!-- Title / Description -->
+              <div class="form-group">
+                <label for="tx-title" class="form-label">عنوان المعاملة / الوصف</label>
+                <input type="text" id="tx-title" class="form-control" placeholder="مثال: فاتورة كهرباء، قهوة، راتب..."
+                  required>
+              </div>
+
+              <!-- Amount -->
+              <div class="form-group">
+                <label for="tx-amount" class="form-label">المبلغ (د.أ)</label>
+                <input type="number" id="tx-amount" class="form-control" placeholder="0.00" step="any" min="0.01"
+                  required>
+              </div>
+
+              <!-- Category -->
+              <div class="form-group">
+                <label for="tx-category" class="form-label">التصنيف / الفئة</label>
+                <select id="tx-category" class="form-control" required>
+                  <option value="" disabled selected>اختر الفئة...</option>
+                  <option value="طعام ومشروبات">🍔 طعام ومشروبات</option>
+                  <option value="مواصلات وبنزين">🚗 مواصلات وبنزين</option>
+                  <option value="فواتير وسكن">🏠 فواتير وسكن</option>
+                  <option value="تسوق وترفيه">🛍️ تسوق وترفيه</option>
+                  <option value="صحة ورياضة">🏋️ صحة ورياضة</option>
+                  <option value="راتب ودخل">💰 راتب ودخل</option>
+                  <option value="أخرى">📦 أخرى</option>
+                </select>
+              </div>
+
+              <!-- Date -->
+              <div class="form-group">
+                <label for="tx-date" class="form-label">التاريخ</label>
+                <input type="date" id="tx-date" class="form-control" required>
+              </div>
+
+              <!-- Submit Button / Actions -->
+              <button type="submit" class="btn btn-primary" id="btn-submit-tx">
+                <i class="fa-solid fa-plus"></i>
+                <span id="btn-submit-text">إضافة المعاملة</span>
+              </button>
+
+              <div class="edit-cancel-group" id="edit-actions" style="display: none;">
+                <button type="button" class="btn btn-outline" id="btn-cancel-edit" style="width: 100%;">
+                  <i class="fa-solid fa-xmark"></i>
+                  <span>إلغاء التعديل</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Category Spending Quick Breakdown
+        <div class="card breakdown-card" id="category-breakdown-card">
+          <div class="card-header">
+            <h2 class="card-title">
+              <i class="fa-solid fa-chart-simple"></i>
+              <span>أين تذهب المصاريف؟</span>
+            </h2>
+          </div>
+          <div class="card-body" id="category-breakdown-list">
+            Dynamic Category Progress Bars inserted via JS
+          </div>
+        </div> -->
+      </aside>
+
+      <!-- Left Column: Transactions List & Filter Toolbar -->
+      <section class="main-column">
+        <div class="card">
+          <!-- Filters & Search Toolbar -->
+          <div class="transactions-toolbar">
+            <!-- Search Bar -->
+            <div class="search-input-wrapper">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="search-input" class="form-control" placeholder="ابحث بالاسم أو الوصف أو الفئة...">
+            </div>
+
+            <!-- Filter Controls Row -->
+            <div class="filters-row">
+              <!-- Type Filter Pills -->
+              <div class="pill-group" id="type-pills" aria-label="تصفية حسب نوع المعاملة">
+                <button type="button" class="filter-pill active" data-filter="all" aria-pressed="true">الكل</button>
+                <button type="button" class="filter-pill" data-filter="expense" aria-pressed="false">المصاريف</button>
+                <button type="button" class="filter-pill" data-filter="income" aria-pressed="false">الدخل</button>
+              </div>
+
+              <!-- Dropdown Filters: Period & Category -->
+              <div class="dropdown-filters">
+                <select id="period-filter" class="filter-select" aria-label="تصفية حسب الفترة">
+                  <option value="all">كل الأوقات</option>
+                  <option value="week">آخر 7 أيام</option>
+                  <option value="month">هذا الشهر</option>
+                </select>
+
+                <select id="category-filter" class="filter-select" aria-label="تصفية حسب الفئة">
+                  <option value="all">جميع الفئات</option>
+                  <option value="طعام ومشروبات">طعام ومشروبات</option>
+                  <option value="مواصلات وبنزين">مواصلات وبنزين</option>
+                  <option value="فواتير وسكن">فواتير وسكن</option>
+                  <option value="تسوق وترفيه">تسوق وترفيه</option>
+                  <option value="صحة ورياضة">صحة ورياضة</option>
+                  <option value="راتب ودخل">راتب ودخل</option>
+                  <option value="أخرى">أخرى</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Header summary with count -->
+          <div class="card-header" style="background: white;">
+            <span class="card-title" style="font-size: 0.95rem;">
+              <span>قائمة المعاملات</span>
+              <span class="badge" id="tx-count-badge">0 معاملة</span>
+            </span>
+            <!-- <button type="button" class="btn btn-sm btn-danger-ghost" id="btn-clear-all" title="مسح جميع المعاملات">
+              <i class="fa-solid fa-trash-can"></i>
+              <span>مسح الكل</span>
+            </button> -->
+          </div>
+
+          <!-- Transaction Items List -->
+          <ul class="transactions-list" id="transactions-list">
+            <!-- Dynamic transactions rendered here via JS -->
+          </ul>
+
+          <!-- Empty State (Shown when no items match filters) -->
+          <div class="empty-state" id="empty-state" style="display: none;">
+            <div class="empty-state-icon">
+              <i class="fa-solid fa-receipt"></i>
+            </div>
+            <h3>لا توجد معاملات مطابقة</h3>
+            <p>جرّب تغيير خيارات البحث أو الفلترة، أو قم بإضافة معاملة جديدة.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="container">
+      <p>مشروع ورشة عمل جافاسكريبت — <span>وين راحت المصاريف؟</span></p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- JavaScript Files -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
